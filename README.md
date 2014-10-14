@@ -13,4 +13,5 @@ ex17_new.txt - File created from copy
 ex17_test.txt - File to be copied
 ex20.rb - Exercise 20: Functions and Files
 ex20_test.txt - Text to print lines from
+ex35.rb - Exercise 35: Branching and Functions
 ```
