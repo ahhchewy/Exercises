@@ -11,4 +11,6 @@ ex16_test2.txt - Second text file created by Exercise 16
 ex17.rb - Exercise 17: More Files
 ex17_new.txt - File created from copy
 ex17_test.txt - File to be copied
+ex20.rb - Exercise 20: Functions and Files
+ex20_test.txt - Text to print lines from
 ```
