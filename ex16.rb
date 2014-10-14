@@ -1,6 +1,6 @@
 filename = ARGV.first
 
-puts "We're goin gto erase #{filename}"
+puts "We're going to erase #{filename}"
 puts "If you don't want that, hit CTRL -C (^C)."
 puts "If you do want that, hit RETURN."
 
@@ -23,12 +23,7 @@ line3 = $stdin.gets.chomp
 
 puts "I'm going to write these into the file."
 
-target.write(line1)
-target.write("\n")
-target.write(line2)
-target.write("\n")
-target.write(line3)
-target.write("\n")
+target.write("#{line1}\n#{line2}\n#{line3}\n")
 
 puts "And finally, we close it."
 target.close
