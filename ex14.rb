@@ -1,4 +1,4 @@
-user_name = ARGV.first
+user_name, age = ARGV
 prompt = '> '
 
 puts "Hi #{user_name}."
@@ -16,4 +16,5 @@ puts """
 Alright, so you said #{likes} about liking me.
 You live in #{lives}. Not sure where that is.
 And you have a #{computer} computer. Nice.
+You are also #{age} years old. So old...
 """
