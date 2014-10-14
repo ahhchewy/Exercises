@@ -9,6 +9,6 @@ ex16_read.rb - File reading script for Exercise 16
 ex16_test.txt - Text file created by Exercise 16
 ex16_test2.txt - Second text file created by Exercise 16
 ex17.rb - Exercise 17: More Files
-ex17_test.txt - File to be copied
 ex17_new.txt - File created from copy
+ex17_test.txt - File to be copied
 ```
