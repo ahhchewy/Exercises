@@ -1,6 +1,42 @@
-class Movement
+class Engine
 
-	@@direction = %w[right left straight turn_around]
+	def initialize(room_map)
+		@room_map = room_map
+	end
+
+	def play()
+		current_room = @room_map.opening_room()
+		last_room = @room_map.next_room(:finished)
+
+		while current_room != last_room
+			next_room_name = current_room.enter()
+			current_room = @room_map.next_room(next_room_name)
+		end
+
+		current_room.enter()
+	end
+
+end
+
+
+class Room
+
+	@@direction = ['right', 'left', 'straight', 'turn around']
+
+	@@misdirection = "Not knowing a direction to go in, you run around in a circle."
+
+	def enter()
+		puts "This scene is not yet configured. Subclass it and implement enter."
+		exit(1)
+	end
+
+	def prompt()
+		print "> "
+	end
+
+	def compare(input)
+		@@direction.any? {|x| x == input}
+	end
 
 	def right
 		return yield
@@ -33,33 +69,6 @@ class Movement
 	end
 end
 
-class Room < Movement
-
-	def enter
-		puts "This scene is not yet configured. Subclass it and implement enter."
-		exit(1)
-	end
-end
-
-class Engine
-
-	def initialize(room_map)
-		@room_map = room_map
-	end
-
-	def play
-		current_room = @room_map.opening_room()
-		last_room = @room_map.next_room(:finished)
-
-		while current_room != last_room
-			next_room_name = current_room.enter
-			current_room = @room_map.next_room(next_room_name)
-		end
-
-		current_room.enter
-	end
-
-end
 
 class Death
 
@@ -80,15 +89,23 @@ class Death
 	end
 end
 
+class Wall < Room
+
+	def enter()
+		puts "Ouch! You've walked into a wall!"
+	end
+end
+
 class InsideMouseHole < Room
 
-	def enter
-		puts "You are a hungry mouse and choose to seek out food at a nearby hoouse."
-		puts "Managing to squeeze through a big crack in the side, you see a light."
-		puts "It is a hole into the inside of the house!"
+	def enter()
+		puts "You are a hungry mouse, looking for food."
+		puts "Your vision is poor, but you make your way to a well lit house."
+		puts "Managing to squeeze through a big crack in the side, and end up in the walls."
+		puts "You see a light! It is a hole to the inside of the house!"
 		puts "You might be able to find some food."
-		puts "Do you go approach the hole?"
-		print "> "
+		puts "Do you approach the hole?"
+		prompt
 
 		user_input = $stdin.gets.chomp.downcase
 
@@ -100,33 +117,42 @@ class InsideMouseHole < Room
 				Death.new("You give up on the search for food, and starve!")
 			else
 				puts "Think a little harder, you are starving and are not thinking straight."
-				print "> "
+				prompt
 				user_input = $stdin.gets.chomp.downcase
 			end 
 		end
 	end
 end
 
+
 class MouseHole < Room
 
-	def enter
-		if @@direction.all? {|x| user_input == x}
-			if last_room == 'inside_mouse_hole'
-				go(user_input, 'wall', 'wall', 'hallway1', Death.new("You give up on the search for food, and starve!"))
-			elsif last_room == 'hallway1'
-				go(user_input, 'wall', 'wall', Death.new("You give up on the search for food, and starve!"), 'hallway1')
-			else
-				puts 'Room not defined.'
-			end while last_room == 'inside_mouse_hole'
+	def enter()
+		puts "At the entrance of the mouse hole."
+		prompt
+
+		user_input = $stdin.gets.chomp.downcase
+
+		while !compare(user_input)
+			puts @@misdirection
+			prompt
+			user_input = $stdin.gets.chomp.downcase
+		end
+
+		if @@room_map == :inside_mouse_hole
+			go(user_input, :wall, :wall, :hallway1, Death.new("You give up on the search for food, and starve!"))
+		elsif @@room_map == :hallway1
+			go(user_input, :wall, :wall, Death.new("You give up on the search for food, and starve!"), :hallway1)
 		else
-			puts :direction
+			puts 'Room not defined.'
 		end
 	end
 end
 
+
 class Hallway1 < Room
 
-	def enter
+	def enter()
 		if last_room == 'mouse_hole'
 			go('hallway2', 'stairs', 'wall', 'mouse_hole')
 		elsif last_room == 'stairs'
@@ -141,9 +167,10 @@ class Hallway1 < Room
 	end
 end
 
+
 class Hallway2 < Room
 
-	def enter
+	def enter()
 		if last_room == 'hallway1'
 			go('livingroom', 'kitchen', 'dead_end', 'hallway1')
 		elsif last_room == 'livingroom'
@@ -158,104 +185,118 @@ class Hallway2 < Room
 	end
 end
 
+
 class Livingroom < Room
 
-	def enter
+	def enter()
 		
 	end
 end
 
+
 class DeadEnd < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class Door < Room
 
 end
 
+
 class Kitchen < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class Stairs < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class TopStairs < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class Hallway3 < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class GirlBedroom < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class Banister < Room
 
 end
 
+
 class Bathroom < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class MasterBedroom < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class Kitchen < Room
 
-	def enter
+	def enter()
 
 	end
 end
+
 
 class InnerKitchen < Room
 
-	def enter
+	def enter()
 
 	end
 end
 
+
 class Finished < Room
 
-	def enter
+	def enter()
 		puts "You found the cheese! You won!"
 		puts "You will not starve!"
 	end
 end
 
+
 class Map
 
 	@@rooms = {
-		:wall => "You've walked into a wall.",
-		:direction => "Not knowing a direction to go in, you run around in a circle.",
+		:wall => Wall.new,
 		:inside_mouse_hole => InsideMouseHole.new,
 		:mouse_hole => MouseHole.new,
 		:hallway1 => Hallway1.new,
@@ -292,4 +333,4 @@ end
 
 a_map = Map.new(:inside_mouse_hole)
 a_game = Engine.new(a_map)
-a_game.play
+a_game.play()
