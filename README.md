@@ -16,6 +16,6 @@ ex20_test.txt - Text to print lines from
 ex35.rb - Exercise 35: Branching and Functions
 ex39_dict.rb - Exercise 39 hash module mimicking a hash
 ex39_test.rb - Test file for hash module
-ex42.rb - Exercise 43: Basic Object-Oriented Analysis and Design (Mouse Game)
-ex42_notes.txt - Notes for Mouse Game
+ex43.rb - Exercise 43: Basic Object-Oriented Analysis and Design (Mouse Game)
+ex43_notes.txt - Notes for Mouse Game
 ```
