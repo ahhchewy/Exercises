@@ -39,21 +39,6 @@ class Game
 		@direction.any? {|x| x == input}
 	end
 
-	def go(room1=nil, room2=nil, room3=nil, room4=nil)
-
-		if @orientation == 'right'
-			return room1
-		elsif @orientation == 'left'
-			return room2
-		elsif @orientation == 'straight'
-			return room3
-		elsif @orientation == 'turn around'
-			return room4
-		else
-			puts 'No direction or room was defined for this action.'
-		end
-	end
-
 	def death()
 		puts
 		puts "You have died..."
@@ -100,15 +85,31 @@ class Game
 		while user_input != 'straight' || user_input != 'turn around'
 
 			if user_input == 'straight' || user_input == 'turn around'
-				@orientation = user_input
-				puts @previous_room
-				puts @orientation
 
 				if @previous_room == :inside_mouse_hole
-					puts "This worked!"
-					go(nil, nil, :hallway1, :death)
-				elsif @previous_room == :hallway1
-					go(nil, nil, :death, :hallway1)
+
+					@previous_room = :mouse_hole
+					 
+					 if user_input == 'straight'
+					 	return :hallway_1
+					 elsif user_input == 'turn around'
+					 	return :death
+					 else
+					 	puts "Was not able to proceed to the next room."
+					 end
+					 
+				elsif @previous_room == :hallway_1
+
+					@previous_room = :mouse_hole
+
+					 if user_input == 'straight'
+					 	return :death
+					 elsif user_input == 'turn around'
+					 	return :hallway_1
+					 else
+					 	puts "Was not able to proceed to the next room."
+					 end
+
 				else
 					puts 'Room not defined.'
 				end
@@ -122,9 +123,6 @@ class Game
 			prompt
 			user_input = $stdin.gets.chomp.downcase
 		end
-
-		@previous_room = :mouse_hole
-
 	end
 
 	def hallway_1()
