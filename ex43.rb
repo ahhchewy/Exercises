@@ -1,24 +1,3 @@
-class Engine
-
-	def initialize(room_map)
-		@room_map = room_map
-	end
-
-	def play()
-		current_room = @room_map.opening_room()
-		last_room = @room_map.next_room(:finished)
-
-		while current_room != last_room
-			next_room_name = current_room.enter()
-			current_room = @room_map.next_room(next_room_name)
-		end
-
-		current_room.enter()
-	end
-
-end
-
-
 class Room
 
 	@@direction = ['right', 'left', 'straight', 'turn around']
@@ -70,7 +49,7 @@ class Room
 end
 
 
-class Death
+class Game < Room
 
 	@@quips = [
 		"Hopefully you get reincarnated as rock, you might do better.",
@@ -79,7 +58,21 @@ class Death
 		"Death is very becoming of you!"
 	]
 
-	def initialize(reason)
+	def initialize(room_map)
+		@room_map = room_map
+	end
+
+	def play()
+		next_room = @room_map
+
+		while true
+			puts "\n--------------------"
+			room = method(next_room)
+			next_room = room.call()
+		end
+	end
+
+	def death(reason)
 		puts
 		puts reason
 		puts "You have died..."
@@ -87,18 +80,12 @@ class Death
 		puts
 		exit(1)
 	end
-end
 
-class Wall < Room
-
-	def enter()
-		puts "Ouch! You've walked into a wall!"
+	def wall()
+		puts "Ouch! You walked into a wall!"
 	end
-end
 
-class InsideMouseHole < Room
-
-	def enter()
+	def inside_mouse_hole()
 		puts "You are a hungry mouse, looking for food."
 		puts "Your vision is poor, but you make your way to a well lit house."
 		puts "Managing to squeeze through a big crack in the side, and end up in the walls."
@@ -114,7 +101,7 @@ class InsideMouseHole < Room
 				puts "Carefully, you make your way to the entrance of the mouse hole."
 				return :mouse_hole
 			elsif user_input == 'no'
-				Death.new("You give up on the search for food, and starve!")
+				death("You give up on the search for food, and starve!")
 			else
 				puts "Think a little harder, you are starving and are not thinking straight."
 				prompt
@@ -122,7 +109,12 @@ class InsideMouseHole < Room
 			end 
 		end
 	end
+
 end
+
+
+
+
 
 
 class MouseHole < Room
