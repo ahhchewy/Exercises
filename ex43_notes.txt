@@ -11,8 +11,12 @@ Must reach 'kitchen' for cheese, 'finish game'
 * Rooms
 
 Room Plans:
+- Inside Mouse Hole
+	- (start) -> Mouse Hole
 - Mouse Hole
-	- (Start) -> Hallway 1
+	- Right -> Wall
+	- Left -> Wall
+	- Straight -> Hallway 1
 	- Turn Around -> Death: Starvation
 - Hallway 1
 	- From Mouse Hole:
