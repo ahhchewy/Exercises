@@ -55,7 +55,7 @@ Room Plans:
 	- Left -> Wall
 	- Straight -> Door
 	- Turn Around -> Hallway 2
-- Door -> Death: Stepped on
+- Door -> Death: Door smoosh
 - Livingroom
 	- Turn Back -> Hallway 2
 	- Explore -> Death: Eaten by Cat
@@ -113,3 +113,13 @@ Room Plans:
 - Inner Kitchen
 	- Floor -> Death: Mouse Trap
 	- Counter -> WIN! Finish Game
+
+
+Death Scenes:
+- Inside Mouse Hole -> Starvation
+- Door -> Door smoosh
+- Livingroom -> Eaten by cat
+- Banister -> Accidental suicide
+- Bathroom -> Falls in toilet
+- Little Girl's Bedroom -> Hamster
+- Master Bedroom ->
