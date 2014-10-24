@@ -64,21 +64,21 @@ START
 
 	def death()
 
-		if @next_room == :inside_mouse_hole || @next_room == :mouse_hole
+		if @previous_room == :inside_mouse_hole || @previous_room == :mouse_hole
 			puts @death_scene[:starvation]
-		elsif @next_room == :door
+		elsif @previous_room == :dead_end
 			puts @death_scene[:smooshed]
-		elsif @next_room == :livingroom
+		elsif @previous_room == :hallway_3
 			puts @death_scene[:cat]
-		elsif @next_room == :banister
+		elsif @previous_room == :stairs || @previous_room == :bathroom || @previous_room == :master_bedroom
 			puts @death_scene[:suicide]
-		elsif @next_room == :bathroom
+		elsif @previous_room == :bathroom
 			puts @death_scene[:toilet]
-		elsif @next_room == :girls_bedroom
+		elsif @previous_room == :top_stairs
 			puts @death_scene[:hamster]
-		elsif @next_room == :master_bedroom
+		elsif @previous_room == :hallway_3
 			puts @death_scene[:stiletto]
-		elsif @next_room == :inner_kitchen
+		elsif @previous_room == :kitchen
 			puts @death_scene[:trap]
 		else
 			puts "Failed to enter death scene."
@@ -103,7 +103,7 @@ squeeze through a big crack in the side of the house.
 The crack only lets you into the walls of the house, but it is 
 still nice and warm. Satisfied with yourself, you continue your 
 search for food. There seems to some light filtering in 
-somewhere. You follow the light until you reach a hole.It is a 
+somewhere. You follow the light until you reach a hole. It is a 
 hole to the inside of the house! You might be able to find some 
 food if you explore the inside. However, this is much riskier 
 than you would like...
@@ -115,6 +115,8 @@ INTRO
 		user_input = $stdin.gets.chomp.downcase
 
 		while user_input != 'yes' || user_input != 'no'
+
+			@previous_room = :inside_mouse_hole
 
 			if user_input == 'yes'
 				return :mouse_hole
@@ -131,7 +133,7 @@ INTRO
 
 	def mouse_hole()
 
-		puts "At the entrance of the mouse hole."
+		puts "At entrance, the mouse hole opens into a hallway. There"
 		prompt
 
 		user_input = $stdin.gets.chomp.downcase
@@ -355,11 +357,11 @@ INTRO
 
 		user_input = $stdin.gets.chomp.downcase
 
+		@previous_room = :dead_end
+
 		while user_input != 'right' || user_input != 'left' || user_input != 'straight' || user_input != 'turn around'
 
 			if user_input == 'right' || user_input == 'left' || user_input == 'straight' || user_input == 'turn around'
-
-				@previous_room = :dead_end
 
 				if user_input == 'right'
 					puts @wall
@@ -611,12 +613,11 @@ INTRO
 
 		user_input = $stdin.gets.chomp.downcase
 
+		@previous_room = :bathroom
+
 		while user_input != 'turn around'
 
 			if user_input == 'turn around'
-
-				@previous_room = :bathroom
-
 				return :hallway_3
 			elsif user_input == 'explore'
 				return :death #drown in toilet
