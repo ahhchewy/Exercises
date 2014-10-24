@@ -9,7 +9,16 @@ class Game
 			"Death is very becoming of you!"
 		]
 
-		@direction = ['right', 'left', 'straight', 'turn around']
+		@death_scene = {
+			:starvation => "You have give up on the search for food and starve!",
+			:smooshed => "The door suddenly opens and smooshes you against the wall!",
+			:cat => "A cat in the livingroom hunts you down and eats you!",
+			:suicide => "You fall over the edge and accidentally commit suicide!",
+			:toilet => "Mesmerized by the shiny giant bowl, you climb it to check it out.\nYou slip and fall into the toilet and drown!",
+			:hamster => ,
+			:stiletto => "You are discovered by the lady of the house!\nShe impales you with her stiletto!",
+			:trap => "You sniff around on the ground and catch the whiff of a bit of cheese.\nFollowing the scent, you find the tiny morsel sitting on some weird contraption.\n**SMACK**\nYou unwittingly stumble onto a mouse trap and it has crushed your skull!",
+		}
 
 		@misdirection = "Not knowing a direction to go in, you run around in a circle."
 
@@ -34,10 +43,29 @@ class Game
 	end
 
 	def death()
-		puts
+
+		if @next_room == :inside_mouse_hole || @next_room == :mouse_hole
+			puts @death_scene[:starvation]
+		elsif @next_room == :door
+			puts @death_scene[:smooshed]
+		elsif @next_room == :livingroom
+			puts @death_scene[:cat]
+		elsif @next_room == :banister
+			puts @death_scene[:suicide]
+		elsif @next_room == :bathroom
+			puts @death_scene[:toilet]
+		elsif @next_room == :girls_bedroom
+			puts @death_scene[:hamster]
+		elsif @next_room == :master_bedroom
+			puts @death_scene[:stiletto]
+		elsif @next_room == :inner_kitchen
+			puts @death_scene[:trap]
+		else
+			puts "Failed to enter death scene."
+		end
+			
 		puts "You have died..."
-		puts @quips[rand(0..(@quips.length - 1))]
-		puts
+		puts @quips[rand(0..(@quips.length - 1))] + "\n"
 		exit(1)
 	end
 
@@ -333,9 +361,6 @@ class Game
 		while user_input != 'turn around'
 
 			if user_input == 'turn around'
-
-				@previous_room = :dead_end
-
 				return :hallway_2
 			elsif user_input != 'turn around'
 				return :death #door smoosh
