@@ -10,6 +10,17 @@ Must reach 'kitchen' for cheese, 'finish game'
 * Engine
 * Rooms
 
+**Notes**
+- Add 'explore' to these rooms:
+	- Mouse Hole
+	- Hallway 1
+	- Hallway 2
+	- Hallway 3
+	- Top of Stairs
+- Decide 'explore' scenes and chances
+- Work on Inner Kitchen
+- Battle Hamster
+
 Room Plans:
 - Inside Mouse Hole
 	- (start) -> Mouse Hole
@@ -18,6 +29,7 @@ Room Plans:
 	- Left -> Wall
 	- Straight -> Hallway 1
 	- Turn Around -> Death: Starvation
+	- Explore
 - Hallway 1
 	- From Mouse Hole:
 		- Right -> Hallway 2
@@ -34,6 +46,7 @@ Room Plans:
 		- Left -> Mouse Hole
 		- Straight -> Hallway 1
 		- Turn Around -> Stairs
+	- Explore
 - Hallway 2
 	- From Hallway 1
 		- Right -> Livingroom
@@ -49,7 +62,8 @@ Room Plans:
 		- Right -> Kitchen
 		- Left -> Livingroom
 		- Straight -> Hallway 1
-		- Turn Around -> Dead End	
+		- Turn Around -> Dead End
+	- Explore
 - Dead End
 	- Right -> Wall
 	- Left -> Wall
@@ -78,6 +92,7 @@ Room Plans:
 		- Left -> Stairs
 		- Straight -> Wall
 		- Turn Around -> Hallway 3
+	- Explore
 - Hallway 3
 	- From Stairs
 		- Right -> Banister
@@ -94,6 +109,7 @@ Room Plans:
 		- Left -> Banister
 		- Straight -> Hallway 3
 		- Turn Around -> Master Bedroom
+	- Explore
 - Banister -> Death: Accidental suicide
 - Bathroom
 	- Turn Around -> Hallway 3
@@ -110,16 +126,17 @@ Room Plans:
 - Kitchen
 	- Turn Around -> Hallway 2
 	- Explore -> Inner Kitchen
-- Inner Kitchen
+- Inner Kitchen (work on this more to incorporate 'explore', 'yes/no', or 'climb')
 	- Floor -> Death: Mouse Trap
 	- Counter -> WIN! Finish Game
 
 
 Death Scenes:
-- Inside Mouse Hole -> Starvation
+- Inside Mouse Hole -> Starvation 
 - Door -> Door smoosh
 - Livingroom -> Eaten by cat
 - Banister -> Accidental suicide
 - Bathroom -> Falls in toilet
 - Little Girl's Bedroom -> Hamster
-- Master Bedroom ->
+- Master Bedroom -> Impaled by stiletto
+- Inner Kitchen -> Mouse trap
