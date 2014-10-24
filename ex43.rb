@@ -15,9 +15,9 @@ class Game
 			:cat => "A cat in the livingroom hunts you down and eats you!",
 			:suicide => "You fall over the edge and accidentally commit suicide!",
 			:toilet => "Mesmerized by the shiny giant bowl, you climb it to check it out.\nYou slip and fall into the toilet and drown!",
-			:hamster => ,
+			:hamster => "Death by hamster",
 			:stiletto => "You are discovered by the lady of the house!\nShe impales you with her stiletto!",
-			:trap => "You sniff around on the ground and catch the whiff of a bit of cheese.\nFollowing the scent, you find the tiny morsel sitting on some weird contraption.\n**SMACK**\nYou unwittingly stumble onto a mouse trap and it has crushed your skull!",
+			:trap => "You sniff around on the ground and catch the whiff of a bit\nof cheese. Following the scent, you find the tiny morsel\nsitting on some weird contraption.\n**SMACK**\nYou unwittingly stumble onto a mouse trap and it has crushed\nyour skull!",
 		}
 
 		@misdirection = "Not knowing a direction to go in, you run around in a circle."
@@ -26,13 +26,33 @@ class Game
 
 		@room_map = room_map
 		@previous_room = @room_map
+
+		puts <<START
+Starting... Mouse Game
+
+Welcome to Mouse Game, the game where you play as a hungry 
+mouse in search of food. In order to find food, navigate and 
+explore the house. To win the game, you must find the cheese. 
+Careful! Dangers may await you...
+
+INSTRUCTIONS
+To move, enter the actions 'right', 'left', 'straight', or 
+'turn around'. You can also investigate some rooms by entering 
+'explore'.
+
+Good luck on your search for food!
+
+Hit enter to start your journey :)
+START
+
+		start = $stdin.gets.chomp
 	end
 
 	def play()
 		@next_room = @room_map
 
 		while true
-			puts "\n--------------------"
+			puts "\n--------------------\n\n"
 			room = method(@next_room)
 			@next_room = room.call()
 		end
@@ -71,12 +91,25 @@ class Game
 
 	def inside_mouse_hole()
 
-		puts "You are a hungry mouse, looking for food."
-		puts "Your vision is poor, but you make your way to a well lit house."
-		puts "Managing to squeeze through a big crack in the side, and end up in the walls."
-		puts "You see a light! It is a hole to the inside of the house!"
-		puts "You might be able to find some food."
-		puts "Do you approach the hole?"
+		puts <<INTRO
+In the middle of winter, there is a very little food for 
+most animals to eat. You are a hungry mouse, desperately 
+searching looking for food in a small field.Your vision is 
+poor, but you see something bright a short distance away. It's 
+a house! It doesn't look too very far away, so you decide to 
+make your way to it. The journey is short, and you manage to 
+squeeze through a big crack in the side of the house.
+
+The crack only lets you into the walls of the house, but it is 
+still nice and warm. Satisfied with yourself, you continue your 
+search for food. There seems to some light filtering in 
+somewhere. You follow the light until you reach a hole.It is a 
+hole to the inside of the house! You might be able to find some 
+food if you explore the inside. However, this is much riskier 
+than you would like...
+
+Do you go through the hole?
+INTRO
 		prompt
 
 		user_input = $stdin.gets.chomp.downcase
@@ -88,7 +121,7 @@ class Game
 			elsif user_input == 'no'
 				return :death
 			else
-				puts "Think a little harder, you are starving and are not thinking straight."
+				puts "Think a little harder, you are starving and are not thinking\nstraight."
 				prompt
 				user_input = $stdin.gets.chomp.downcase
 			end 
